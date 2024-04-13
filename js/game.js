@@ -22,12 +22,13 @@ class Game {
   }
 
   init() {
-    // this.startScreen.style.display = "none";
-
+    this.startScreen.style.display = "none";
+    this.gameScreen.style.display = "inline-flex";
     this.board = document.getElementById("board");
     this.board.height = this.rows * this.blockSize;
     this.board.width = this.cols * this.blockSize;
     this.context = this.board.getContext("2d");
+
     this.food.place();
     this.cell.place();
     this.standardEnemy.place();
