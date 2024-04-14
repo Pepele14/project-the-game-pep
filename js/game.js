@@ -7,9 +7,13 @@ class Game {
     this.blockSize = blockSize;
     this.rows = rows;
     this.cols = cols;
-    this.board = null; //double check if i actually need it
+    this.board = null;
     this.context = null;
-    this.player = new Player(this.blockSize * 5, this.blockSize * 5);
+    this.player = new Player(
+      this.blockSize * 5,
+      this.blockSize * 5,
+      "./images/player.png"
+    );
     this.food = new Food(this.blockSize, this.rows, this.cols);
     this.cell = new Cell(this.blockSize, this.rows, this.cols);
     this.standardEnemy = new StandardEnemy(
@@ -34,6 +38,7 @@ class Game {
     this.standardEnemy.place();
     document.addEventListener("keyup", this.changeDirection.bind(this));
     setInterval(this.update.bind(this), 1000 / 10);
+    this.context.imageSmoothingEnabled = true;
   }
 
   update() {
@@ -41,7 +46,7 @@ class Game {
       return;
     }
 
-    this.context.fillStyle = "black";
+    this.context.fillStyle = "orange";
     this.context.fillRect(0, 0, this.board.width, this.board.height);
     this.drawScore();
 
@@ -51,36 +56,46 @@ class Game {
       this.drawScore();
     }
 
-    if (this.score > 500) {
-      this.context.fillStyle = "orange";
+    if (this.score > 1500) {
+      this.context.fillStyle = "black";
       this.context.fillRect(0, 0, this.board.width, this.board.height);
       this.drawScore();
     }
 
-    this.context.fillStyle = "lime";
-    this.player.update(this.blockSize);
-    this.context.fillRect(
-      this.player.x,
-      this.player.y,
-      this.blockSize,
-      this.blockSize
-    );
+    this.player.update(this.blockSize, this.context);
+    // this.context.fillStyle = "lime";
+    // this.player.update(this.blockSize);
+    // this.context.fillRect(
+    //   this.player.x,
+    //   this.player.y,
+    //   this.blockSize,
+    //   this.blockSize
+    // );
 
-    this.context.fillStyle = "red";
-    this.context.fillRect(
-      this.food.x,
-      this.food.y,
-      this.blockSize,
-      this.blockSize
-    );
+    this.food.update(this.blockSize, this.context);
 
-    this.context.fillStyle = "blue";
-    this.context.fillRect(
-      this.cell.x,
-      this.cell.y,
-      this.blockSize,
-      this.blockSize
-    );
+    // this.context.fillStyle = "red";
+    // this.context.fillRect(
+    //   this.food.x,
+    //   this.food.y,
+    //   this.blockSize,
+    //   this.blockSize
+    // );
+
+    this.cell.update(this.blockSize, this.context);
+
+    // this.context.fillStyle = "red";
+    // this.context.fillRect(
+    //   this.cell.x,
+    //   this.cell.y,
+    //   this.blockSize,
+    //   this.blockSize
+    // );
+
+    // this.standardEnemy.update(this.blockSize, this.context);
+    //  if(this.score > 1){
+    //   this.standardEnemy.update(this.blockSize, this.context);
+    //  }
 
     this.context.fillStyle = "grey";
     this.context.fillRect(
@@ -99,6 +114,14 @@ class Game {
       this.score *= 2;
       console.log(this.score);
       this.cell.place();
+    }
+
+    if (
+      this.player.x === this.standardEnemy.x &&
+      this.player.y === this.standardEnemy.y
+    ) {
+      this.gameOver = true;
+      this.gameOverScreen();
     }
 
     if (
@@ -132,11 +155,11 @@ class Game {
 
   drawScore() {
     this.context.fillStyle = "white";
-    this.context.font = "10px Verdana";
+    this.context.font = "50px Verdana";
     this.context.fillText(
       "Score " + this.score,
-      this.gameScreen.width - 100,
-      10
+      this.gameScreen.width - 800,
+      100
     );
   }
 

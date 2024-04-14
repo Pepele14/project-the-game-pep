@@ -9,7 +9,7 @@ window.onload = function () {
   });
 
   function startGame() {
-    const game = new Game(25, 15, 20);
+    const game = new Game(195, 20, 20);
     game.init();
     const restartButton = document.getElementById("restart-button");
   }
