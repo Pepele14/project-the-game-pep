@@ -14,7 +14,7 @@ class Game {
       this.blockSize * 5,
       "./images/player.png"
     ); //initialising player's starting position
-    this.xxxx = new Food(this.blockSize, this.rows, this.cols);
+    this.food = new Food(this.blockSize, this.rows, this.cols);
     this.cell = new Cell(this.blockSize, this.rows, this.cols);
     this.standardEnemy = new StandardEnemy(
       this.blockSize,
