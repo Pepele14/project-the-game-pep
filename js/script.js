@@ -11,6 +11,7 @@ window.onload = function () {
   function startGame() {
     const game = new Game(195, 20, 20);
     game.init();
+    instructionsScreenPanel();
     const restartButton = document.getElementById("restart-button");
   }
 
@@ -24,4 +25,9 @@ window.onload = function () {
   function restartGame() {
     location.reload();
   }
+
+  // instructionsScreenPanel() {
+
+  // }
 };
+//Game initialisation

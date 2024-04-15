@@ -4,16 +4,16 @@ class Game {
     this.gameScreen = document.getElementById("board");
     this.startScreen = document.getElementById("game-intro");
     this.scoringElement = document.getElementById("score");
-    this.blockSize = blockSize;
+    this.blockSize = blockSize; //represents the size of each block or square in the game grid
     this.rows = rows;
     this.cols = cols;
-    this.board = null;
-    this.context = null;
+    this.board = null; //Do I actually need it like this? I dont think so
+    this.context = null; //same for this one
     this.player = new Player(
       this.blockSize * 5,
       this.blockSize * 5,
       "./images/player.png"
-    );
+    ); //initialising player's starting position
     this.food = new Food(this.blockSize, this.rows, this.cols);
     this.cell = new Cell(this.blockSize, this.rows, this.cols);
     this.standardEnemy = new StandardEnemy(
@@ -27,18 +27,28 @@ class Game {
 
   init() {
     this.startScreen.style.display = "none";
+    // this.instructionsPanel.style.display = "block"; // NOT REALLY WORKING ATM
     this.gameScreen.style.display = "inline-flex";
     this.board = document.getElementById("board");
     this.board.height = this.rows * this.blockSize;
     this.board.width = this.cols * this.blockSize;
     this.context = this.board.getContext("2d");
+    alert(
+      "GAME INSTRUCTIONS: Use the arrow keys to manovrate the player (Green box). Avoid  the grey box and the borders"
+    );
 
     this.food.place();
     this.cell.place();
     this.standardEnemy.place();
     document.addEventListener("keyup", this.changeDirection.bind(this));
-    setInterval(this.update.bind(this), 1000 / 10);
-    this.context.imageSmoothingEnabled = true;
+    // This code adds an event listener for the keyup event on the document.
+    //When a key is released, the changeDirection method is called.
+    //The bind(this) ensures that this inside changeDirection refers to the Game object.
+    setInterval(this.update.bind(this), 1500 / 10); //Game Loop
+    // This code sets up a game update loop using setInterval.
+    //The update method is called every 1000 / 10 milliseconds (i.e., 10 times per second).
+    //Again, bind(this) ensures that this inside update refers to the Game object.
+    this.context.imageSmoothingEnabled = true; //mOST LIKELY NO LONGER NEEDED
   }
 
   update() {
@@ -51,59 +61,37 @@ class Game {
     this.drawScore();
 
     if (this.score > 100) {
-      this.context.fillStyle = "yellow";
-      this.context.fillRect(0, 0, this.board.width, this.board.height);
-      this.drawScore();
-    }
-
-    if (this.score > 1500) {
       this.context.fillStyle = "black";
       this.context.fillRect(0, 0, this.board.width, this.board.height);
       this.drawScore();
     }
 
+    if (this.score > 1500) {
+      this.context.fillStyle = "yellow";
+      this.context.fillRect(0, 0, this.board.width, this.board.height);
+      this.drawScore();
+    }
+
+    if (this.score > 4500) {
+      this.context.fillStyle = "purple";
+      this.context.fillRect(0, 0, this.board.width, this.board.height);
+      this.drawScore();
+    }
+
+    if (this.score > 10000) {
+      this.context.fillStyle = "brown";
+      this.context.fillRect(0, 0, this.board.width, this.board.height);
+      this.drawScore();
+    }
+
+    //calling update method for spawning game elements
     this.player.update(this.blockSize, this.context);
-    // this.context.fillStyle = "lime";
-    // this.player.update(this.blockSize);
-    // this.context.fillRect(
-    //   this.player.x,
-    //   this.player.y,
-    //   this.blockSize,
-    //   this.blockSize
-    // );
 
     this.food.update(this.blockSize, this.context);
 
-    // this.context.fillStyle = "red";
-    // this.context.fillRect(
-    //   this.food.x,
-    //   this.food.y,
-    //   this.blockSize,
-    //   this.blockSize
-    // );
-
     this.cell.update(this.blockSize, this.context);
 
-    // this.context.fillStyle = "red";
-    // this.context.fillRect(
-    //   this.cell.x,
-    //   this.cell.y,
-    //   this.blockSize,
-    //   this.blockSize
-    // );
-
-    // this.standardEnemy.update(this.blockSize, this.context);
-    //  if(this.score > 1){
-    //   this.standardEnemy.update(this.blockSize, this.context);
-    //  }
-
-    this.context.fillStyle = "grey";
-    this.context.fillRect(
-      this.standardEnemy.x,
-      this.standardEnemy.y,
-      this.blockSize,
-      this.blockSize
-    );
+    this.standardEnemy.update(this.blockSize, this.context);
 
     if (this.player.x === this.food.x && this.player.y === this.food.y) {
       this.score += 1;
@@ -165,7 +153,6 @@ class Game {
 
   gameOverScreen() {
     this.gameScreen.style.display = "none";
-
     this.gameEndScreen.style.display = "block";
   }
 }
