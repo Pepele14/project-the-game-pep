@@ -44,7 +44,7 @@ class Game {
     // This code adds an event listener for the keyup event on the document.
     //When a key is released, the changeDirection method is called.
     //The bind(this) ensures that this inside changeDirection refers to the Game object.
-    setInterval(this.update.bind(this), 1500 / 10); //Game Loop
+    setInterval(this.update.bind(this), 1000 / 10); //Game Loop
     // This code sets up a game update loop using setInterval.
     //The update method is called every 1000 / 10 milliseconds (i.e., 10 times per second).
     //Again, bind(this) ensures that this inside update refers to the Game object.
