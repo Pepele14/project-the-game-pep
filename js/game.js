@@ -14,7 +14,7 @@ class Game {
       this.blockSize * 5,
       "./images/player.png"
     ); //initialising player's starting position
-    this.food = new Food(this.blockSize, this.rows, this.cols);
+    this.xxxx = new Food(this.blockSize, this.rows, this.cols);
     this.cell = new Cell(this.blockSize, this.rows, this.cols);
     this.standardEnemy = new StandardEnemy(
       this.blockSize,
@@ -34,7 +34,7 @@ class Game {
     this.board.width = this.cols * this.blockSize;
     this.context = this.board.getContext("2d");
     alert(
-      "GAME INSTRUCTIONS: Use the arrow keys to manovrate the player (Green box). Avoid  the grey box and the borders"
+      "GAME INSTRUCTIONS: Use the arrow keys to manoeuvre the player (green box) - Avoid the grey box and borders."
     );
 
     this.food.place();
