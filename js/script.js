@@ -2,8 +2,6 @@ window.onload = function () {
   const startButton = document.getElementById("start-button");
   const restartButton = document.getElementById("restart-button");
 
-  let game;
-
   startButton.addEventListener("click", function () {
     startGame();
   });
@@ -11,8 +9,6 @@ window.onload = function () {
   function startGame() {
     const game = new Game(195, 20, 20);
     game.init();
-    instructionsScreenPanel();
-    const restartButton = document.getElementById("restart-button");
   }
 
   // Add an event listener to the restart button
@@ -25,9 +21,5 @@ window.onload = function () {
   function restartGame() {
     location.reload();
   }
-
-  // instructionsScreenPanel() {
-
-  // }
 };
 //Game initialisation

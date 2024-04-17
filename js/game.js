@@ -9,11 +9,7 @@ class Game {
     this.cols = cols;
     this.board = null; //Do I actually need it like this? I dont think so
     this.context = null; //same for this one
-    this.player = new Player(
-      this.blockSize * 5,
-      this.blockSize * 5,
-      "./images/player.png"
-    ); //initialising player's starting position
+    this.player = new Player(this.blockSize * 5, this.blockSize * 5); //initialising player's starting position
     this.food = new Food(this.blockSize, this.rows, this.cols);
     this.cell = new Cell(this.blockSize, this.rows, this.cols);
     this.standardEnemy = new StandardEnemy(
@@ -27,7 +23,6 @@ class Game {
 
   init() {
     this.startScreen.style.display = "none";
-    // this.instructionsPanel.style.display = "block"; // NOT REALLY WORKING ATM
     this.gameScreen.style.display = "inline-flex";
     this.board = document.getElementById("board");
     this.board.height = this.rows * this.blockSize;
